@@ -1,0 +1,1 @@
+plats(__id__, libelle, prix)
