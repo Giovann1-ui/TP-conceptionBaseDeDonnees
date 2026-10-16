@@ -11,3 +11,21 @@ SELECT * FROM plats ORDER BY prix DESC;
 --   7 | Ranon ampango         |  500
 
 -- Le type choisi pour le prix est INTEGER car on utilise pas les centimes a madagascar, l'indentifiant utilise pour le prix est INTEGER
+
+-- ETAPE 2
+SELECT c.id, c.libelle, COUNT(p.id) AS nombre_plats
+FROM plats p
+RIGHT JOIN categorie_plats c ON c.id = p.id_categorie_plats
+GROUP BY c.id, c.libelle
+ORDER BY c.id ASC;
+--  id |      libelle      | nombre_plats 
+-- ----+-------------------+--------------
+--   1 | Plat malagasy     |            3
+--   2 | Plat chinois      |            1
+--   3 | Soupe             |            1
+--   4 | Dessert et goûter |            1
+--   5 | Boisson           |            1
+--   6 | Amuse-gueule      |            0
+
+-- on n'ajoute pas une colonne categorie VARCHAR(50) car si l'on souhaite rechercher les plats d'une categorie mais que certains plats sont mal orthoraphiee sur la colonne categorie, certains plats vont etre absent du resultat
+-- exemple : si on a une categorie "Boisson" mais que certains plats sont ecrit "boisson" ou "Jus", les resultats seront incomplet
